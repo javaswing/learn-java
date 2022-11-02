@@ -9,14 +9,18 @@ import javax.validation.constraints.Pattern;
 
 @Data
 public class Order {
-    @NotBlank(message = "name is required")
+    @NotBlank(message="Name is required")
     private String name;
+
     @NotBlank(message = "street is required")
     private String street;
+
     @NotBlank(message = "city is required")
     private String city;
+
     @NotBlank(message = "state is required")
     private String state;
+
     @NotBlank(message = "zip is required")
     private String zip;
 
