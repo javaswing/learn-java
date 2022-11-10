@@ -1,5 +1,10 @@
 package com.zxd.springjpa.data;
 
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.util.Arrays;
+import java.util.Date;
+
 import com.zxd.springjpa.model.Ingredient;
 import com.zxd.springjpa.model.Taco;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,13 +14,10 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.util.Arrays;
-import java.util.Date;
+
 
 @Repository
-public class JdbcTacoRepository implements  TacoRepository{
+public class JdbcTacoRepository implements TacoRepository {
 
     private JdbcTemplate jdbc;
 
@@ -58,4 +60,5 @@ public class JdbcTacoRepository implements  TacoRepository{
                         "values (?, ?)",
                 tacoId, ingredient.getId());
     }
+
 }
