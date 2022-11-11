@@ -2,10 +2,7 @@ package com.zxd.springjpa.data;
 
 import com.zxd.springjpa.model.Ingredient;
 
-public interface IngredientRepository {
-    Iterable<Ingredient> findAll();
+import org.springframework.data.repository.CrudRepository;
 
-    Ingredient findById(String id);
-
-    Ingredient save(Ingredient ingredient);
+public interface IngredientRepository extends CrudRepository<Ingredient, String> {
 }
