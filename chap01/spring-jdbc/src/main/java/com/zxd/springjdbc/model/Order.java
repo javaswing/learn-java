@@ -1,4 +1,4 @@
-package com.zxd.springjpa.model;
+package com.zxd.springjdbc.model;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
@@ -16,20 +16,20 @@ public class Order {
 
     private Date placedAt;
 
-    @NotBlank(message="Delivery name is required")
-    private String deliveryName;
+    @NotBlank(message="Name is required")
+    private String name;
 
-    @NotBlank(message="Street is required")
-    private String deliveryStreet;
+    @NotBlank(message = "street is required")
+    private String street;
 
-    @NotBlank(message="City is required")
-    private String deliveryCity;
+    @NotBlank(message = "city is required")
+    private String city;
 
-    @NotBlank(message="State is required")
-    private String deliveryState;
+    @NotBlank(message = "state is required")
+    private String state;
 
-    @NotBlank(message="Zip code is required")
-    private String deliveryZip;
+    @NotBlank(message = "zip is required")
+    private String zip;
 
     @CreditCardNumber(message="Not a valid credit card number")
     private String ccNumber;

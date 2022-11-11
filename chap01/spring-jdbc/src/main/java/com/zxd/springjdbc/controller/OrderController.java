@@ -1,8 +1,7 @@
-package com.zxd.springjpa.controller;
+package com.zxd.springjdbc.controller;
 
-
-import com.zxd.springjpa.data.OrderRepository;
-import com.zxd.springjpa.model.Order;
+import com.zxd.springjdbc.data.OrderRepository;
+import com.zxd.springjdbc.model.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,28 +23,28 @@ public class OrderController {
 
     private OrderRepository orderRepo;
 
+
     @Autowired
-    public OrderController(OrderRepository orderRepo) {
-        this.orderRepo = orderRepo;
+    public OrderController(OrderRepository o) {
+        this.orderRepo = o;
     }
 
     @GetMapping("/current")
-    public String orderForm(Model model) {
+    public String orderForm() {
         return "orderForm";
     }
 
     @PostMapping
     public String processOrder(@Valid Order order, Errors errors, SessionStatus sessionStatus) {
+        log.info("processOrder" + errors);
         if (errors.hasErrors()) {
             return "orderForm";
         }
 
-        this.orderRepo.save(order);
-
-        log.info("order complete");
+        orderRepo.save(order);
         sessionStatus.setComplete();
 
-
+        log.info("order submit: " + order);
         return "redirect:/";
     }
 }

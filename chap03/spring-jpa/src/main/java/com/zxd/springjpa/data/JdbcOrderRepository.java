@@ -3,6 +3,7 @@ package com.zxd.springjpa.data;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zxd.springjpa.model.Order;
 import com.zxd.springjpa.model.Taco;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -12,7 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Slf4j
 @Repository
 public class JdbcOrderRepository implements  OrderRepository{
     private SimpleJdbcInsert orderInserter;
@@ -36,8 +37,11 @@ public class JdbcOrderRepository implements  OrderRepository{
      */
     @Override
     public Order save(Order order) {
+        log.info("order save");
+        log.info(String.valueOf(order));
         order.setPlacedAt(new Date());
         long orderId = saveOrderDetails(order);
+        log.info("orderId", orderId);
         order.setId(orderId);
         List<Taco> tacos = order.getTacos();
         for (Taco taco : tacos) {
@@ -48,7 +52,6 @@ public class JdbcOrderRepository implements  OrderRepository{
     }
 
     private long saveOrderDetails(Order order) {
-        @SuppressWarnings("unchecked")
         Map<String, Object> values =
                 objectMapper.convertValue(order, Map.class);
         values.put("placedAt", order.getPlacedAt());
@@ -57,6 +60,7 @@ public class JdbcOrderRepository implements  OrderRepository{
                 orderInserter
                         .executeAndReturnKey(values)
                         .longValue();
+        log.info(String.valueOf(orderId));
         return orderId;
     }
 
