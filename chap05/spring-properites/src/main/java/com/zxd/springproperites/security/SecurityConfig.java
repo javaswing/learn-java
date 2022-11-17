@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // https://docs.spring.io/spring-security/reference/5.8/reactive/authorization/method.html#jc-enable-reactive-method-security-authorization-manager
                 // Also, for role-based authorization, Spring Security adds a default ROLE_ prefix, which is uses when evaluating expressions like hasRole
 //                .antMatchers("/design","/orders/**").hasRole("USER")
-                .antMatchers("/design","/orders/**").hasAuthority("ROLE_USER")
+                .antMatchers("/design","/orders/**", "/orders").hasAuthority("ROLE_USER")
                 .antMatchers("/", "/**").permitAll()
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/design")
                 .and().logout().logoutSuccessUrl("/")
