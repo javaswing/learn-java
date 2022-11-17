@@ -8,17 +8,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
 
-@Entity
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
+@Entity
+// @see https://stackoverflow.com/questions/61981787/is-there-a-rule-that-forbids-to-name-its-entity-class-user-when-working-with-p
+// user为表关键字
+@Table(name = "users")
 public class User implements UserDetails {
     private static final long serialVersionUID = 1L;
 

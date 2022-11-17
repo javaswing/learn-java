@@ -1,4 +1,4 @@
-package com.zxd.springsecurity.controller;
+package com.zxd.springsecurity.web;
 
 import com.zxd.springsecurity.data.IngredientRepository;
 import com.zxd.springsecurity.model.Ingredient;

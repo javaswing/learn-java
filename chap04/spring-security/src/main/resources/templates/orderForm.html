@@ -7,10 +7,13 @@
 </head>
 
 <body>
+<form method="POST" th:action="@{/logout}" id="logoutForm">
+    <input type="submit" value="Logout"/>
+</form>
 
 <form method="POST" th:action="@{/orders}" th:object="${order}">
     <h1>Order your taco creations!</h1>
-
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
     <img th:src="@{/images/TacoCloud.png}"/>
 
     <h3>Your tacos in this order:</h3>

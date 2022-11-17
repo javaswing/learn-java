@@ -1,4 +1,4 @@
-package com.zxd.springsecurity.controller;
+package com.zxd.springsecurity.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

@@ -1,12 +1,14 @@
-package com.zxd.springsecurity.controller;
+package com.zxd.springsecurity.web;
 
 
 import com.zxd.springsecurity.data.IngredientRepository;
 import com.zxd.springsecurity.data.TacoRepository;
+import com.zxd.springsecurity.data.UserRepository;
 import com.zxd.springsecurity.model.Ingredient;
 import com.zxd.springsecurity.model.Ingredient.Type;
 import com.zxd.springsecurity.model.Order;
 import com.zxd.springsecurity.model.Taco;
+import com.zxd.springsecurity.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,14 +30,17 @@ public class DesignTacoController {
 
     private final IngredientRepository ingredientRepo;
 
+    private UserRepository userRepo;
+
     //end::ingredientRepoProperty[]
     private TacoRepository designRepo;
 
     @Autowired
     public DesignTacoController(
             IngredientRepository ingredientRepo,
-            TacoRepository designRepo) {
+            UserRepository userRepo, TacoRepository designRepo) {
         this.ingredientRepo = ingredientRepo;
+        this.userRepo = userRepo;
         this.designRepo = designRepo;
     }
 
@@ -50,7 +56,8 @@ public class DesignTacoController {
 
 
     @GetMapping
-    public String showDesignForm(Model model) {
+    public String showDesignForm(Model model, Principal principal) {
+        log.info("   --- Designing taco");
         List<Ingredient> ingredients = new ArrayList<>();
         ingredientRepo.findAll().forEach(i -> ingredients.add(i));
 
@@ -59,6 +66,10 @@ public class DesignTacoController {
             model.addAttribute(type.toString().toLowerCase(),
                     filterByType(ingredients, type));
         }
+
+        String username = principal.getName();
+        User user = userRepo.findUserByUsername(username);
+        model.addAttribute("user", user);
 
         return "design";
     }
