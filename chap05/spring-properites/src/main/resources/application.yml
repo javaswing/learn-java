@@ -5,6 +5,7 @@ taco:
 logging:
   level:
     org.springframework.security: debug
+
 spring:
   jpa:
     show-sql: true
