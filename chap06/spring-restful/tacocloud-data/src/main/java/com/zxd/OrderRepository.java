@@ -1,7 +1,5 @@
-package com.zxd.springproperites.data;
+package com.zxd;
 
-import com.zxd.springproperites.model.Order;
-import com.zxd.springproperites.model.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 

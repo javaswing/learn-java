@@ -1,2 +1,6 @@
-package com.zxd;public class IngredientRepository {
+package com.zxd;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface IngredientRepository extends CrudRepository<Ingredient, String> {
 }

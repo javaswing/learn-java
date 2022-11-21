@@ -1,6 +1,6 @@
-package com.zxd.springproperites.security;
+package com.zxd;
 
-import com.zxd.springproperites.model.User;
+
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

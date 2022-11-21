@@ -1,6 +1,5 @@
-package com.zxd.springproperites.security;
+package com.zxd;
 
-import com.zxd.springproperites.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;

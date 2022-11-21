@@ -1,4 +1,4 @@
-package com.zxd.springproperites.security;
+package com.zxd;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +19,9 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 // @see https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
+    @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    public SecurityConfig(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
 
 
     @Override

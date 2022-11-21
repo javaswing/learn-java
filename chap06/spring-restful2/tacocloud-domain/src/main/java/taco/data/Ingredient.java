@@ -1,4 +1,4 @@
-package com.zxd;
+package taco.data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

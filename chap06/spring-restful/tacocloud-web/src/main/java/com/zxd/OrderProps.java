@@ -1,4 +1,4 @@
-package com.zxd.springproperites.data;
+package com.zxd;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

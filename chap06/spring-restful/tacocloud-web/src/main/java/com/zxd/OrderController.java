@@ -1,11 +1,7 @@
-package com.zxd.springproperites.web;
+package com.zxd;
 
 
-import com.zxd.springproperites.data.OrderProps;
-import com.zxd.springproperites.data.OrderRepository;
-import com.zxd.springproperites.data.UserRepository;
-import com.zxd.springproperites.model.Order;
-import com.zxd.springproperites.model.User;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

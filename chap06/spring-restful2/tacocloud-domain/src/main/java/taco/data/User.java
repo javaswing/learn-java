@@ -1,4 +1,4 @@
-package com.zxd;
+package taco.data;
 
 import lombok.AccessLevel;
 import lombok.Data;

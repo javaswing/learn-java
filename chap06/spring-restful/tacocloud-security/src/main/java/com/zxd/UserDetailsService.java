@@ -1,7 +1,6 @@
-package com.zxd.springproperites.security;
+package com.zxd;
 
-import com.zxd.springproperites.data.UserRepository;
-import com.zxd.springproperites.model.User;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
