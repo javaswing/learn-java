@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxd.mybatis.mapper.StudentMapper">
+    <resultMap id="StudentMap" type="com.zxd.mybatis.domain.Student">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="createTime"  column="create_time"    />
+    </resultMap>
+
+    <sql id="selectFields">
+        id, name, age,create_time
+    </sql>
+
+    <!-- 查询单个 -->
+    <select id="findById" resultMap="StudentMap">
+        select
+        <include refid="selectFields"></include>
+        from student
+        where id = #{id}
+    </select>
+
+    <update id="updateStudent" parameterType="Student">
+        update student
+        <set>
+            <if test="name !== null and name!= ''">name = #{name}</if>
+            <if test="age !== null and age!= ''">age = #{age}</if>
+        </set>
+    </update>
+
+    <insert id="insertByObject" parameterType="Student">
+        insert into student (
+        <set>
+            <if test="name !== null and name!= ''">name,</if>
+            <if test="age !== null and age!= ''">age,</if>
+        </set>
+        createTime
+        ) values (
+            <if test="name !== null and name!= ''"> #{name},</if>
+            <if test="age !== null and age!= ''">#{age},</if>
+            sysdate()
+        )
+    </insert>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from student where id = #{id}
+    </delete>
+</mapper>
