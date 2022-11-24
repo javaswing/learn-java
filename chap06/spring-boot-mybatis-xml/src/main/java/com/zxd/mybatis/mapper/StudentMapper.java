@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
+//此注解需要在 application.properties中的 mybatis.type-aliases-package=com.zxd.mybatis.domain 配合使用，
 public interface StudentMapper {
     public Student findById(@Param("id") Long id);
 

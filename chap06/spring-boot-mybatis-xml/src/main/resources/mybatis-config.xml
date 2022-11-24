@@ -7,7 +7,19 @@
         <setting name="logImpl" value="org.apache.ibatis.logging.stdout.StdOutImpl"/>
     </settings>
 
+    <!--
+        如果在mybatis-config.xml中使用typeAliases，可以不用在application.properties中进行如下配置：
+        #mybatis.type-aliases-package=com.zxd.mybatis.domain
+        二者选一个即可
+
+    -->
     <typeAliases>
         <typeAlias type="com.zxd.mybatis.domain.Student" alias="Student"/>
+        <package name="com.zxd.mybatis.domain"/>
     </typeAliases>
+
+    <typeHandlers>
+        <!--如果此处配置了映射，就不需要在自定义的类型转换器添加@MappedTypes和application.properties中进行配置  -->
+<!--        <typeHandler handler="com.zxd.mybatis.utils.EnumStudentSexHandler" javaType="com.zxd.mybatis.enums.StudentSexEnum"/>-->
+    </typeHandlers>
 </configuration>
