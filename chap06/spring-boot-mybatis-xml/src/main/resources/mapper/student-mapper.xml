@@ -5,12 +5,13 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="age" column="age" jdbcType="INTEGER"/>
-        <result property="createTime"  column="create_time"    />
+        <result property="createTime" column="create_time"/>
         <result property="gender" column="gender" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="selectFields">
-        id, name, age,gender,create_time
+        id
+        , name, age,gender,create_time
     </sql>
 
     <!-- 查询单个 -->
@@ -21,30 +22,39 @@
         where id = #{id}
     </select>
 
+    <select id="selectAll" resultMap="StudentMap">
+        select
+        <include refid="selectFields"></include>
+        from student
+    </select>
+
     <update id="updateStudent" parameterType="Student">
         update student
         <set>
             <if test="name != null and name!= ''">name = #{name}</if>
             <if test="age != null">age = #{age}</if>
-            <if test="gender != null">gender = #{gender, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}}</if>
+            <if test="gender != null">gender = #{gender, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}}
+            </if>
         </set>
     </update>
 
     <insert id="insertByObject" parameterType="Student">
         insert into student (
-            <if test="name != null and name!= ''">name,</if>
-            <if test="age != null">age,</if>
-            <if test="gender != null ">gender,</if>
+        <if test="name != null and name!= ''">name,</if>
+        <if test="age != null">age,</if>
+        <if test="gender != null ">gender,</if>
         create_time
         ) values (
-            <if test="name != null and name!= ''"> #{name},</if>
-            <if test="age != null">#{age},</if>
-            <if test="gender != null ">#{gender},</if>
-            sysdate()
+        <if test="name != null and name!= ''">#{name},</if>
+        <if test="age != null">#{age},</if>
+        <if test="gender != null ">#{gender},</if>
+        sysdate()
         )
     </insert>
 
     <delete id="deleteById" parameterType="Long">
-        delete from student where id = #{id}
+        delete
+        from student
+        where id = #{id}
     </delete>
 </mapper>
