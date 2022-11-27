@@ -13,9 +13,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
+@Transactional
 public class AuthServiceImpl implements AuthService {
 
     @Autowired
@@ -34,9 +36,7 @@ public class AuthServiceImpl implements AuthService {
         Authentication authentication = authenticationManager.authenticate(upToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails = userDetailsService.loadUserByUsername( username );
-        log.info("userDetails : " + String.valueOf(userDetails));
         String token = jwtTokenUtil.generateToken(userDetails);
-        log.info("token : " + token);
         return token;
     }
 

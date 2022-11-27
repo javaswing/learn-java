@@ -5,28 +5,28 @@ import com.zxd.springjwt.service.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.util.DigestUtils;
 
 @Configuration
-@EnableWebSecurity
-public class WebSecurityConfig {
-
+@EnableWebSecurity(debug = true)
+public class SecurityConfiguration {
     @Autowired
-    private MyUserDetailService userService;
+    private MyUserDetailService userDetailsService;
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-        //校验用户
-        auth.userDetailsService(userService).passwordEncoder(new PasswordEncoder() {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new PasswordEncoder() {
             //对密码进行加密
             @Override
             public String encode(CharSequence charSequence) {
@@ -41,30 +41,37 @@ public class WebSecurityConfig {
                 boolean res = s.equals(encode);
                 return res;
             }
-        });
-
+        };
     }
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeHttpRequests()
-                .antMatchers("/login").permitAll()
-                .anyRequest().authenticated();
+                // 禁用session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers("/login").permitAll()
+                        .anyRequest().authenticated()
+                );
+
+        // 未授权返回401
+        http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
         // 使用自定的token 过滤器
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-        http.headers().cacheControl();
+//        http.headers().cacheControl();
         return http.build();
 
     }
 
     @Bean
-    public JwtTokenFilter authenticationTokenFilterBean() throws Exception {
+    public JwtTokenFilter authenticationTokenFilterBean()  {
         return new JwtTokenFilter();
     }
 
     /**
      * 获取AuthenticationManager（认证管理器），登录时认证使用
+     *
      * @param authenticationConfiguration
      * @return
      * @throws Exception
